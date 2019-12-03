@@ -1,6 +1,0 @@
-<component name="CopyrightManager">
-  <copyright>
-    <option name="notice" value="Copyright (c) 2019 JD Williams&#10; &#10;This file is part of Firefly, a Python SOA framework built by JD Williams. Firefly is free software; you can&#10;redistribute it and/or modify it under the terms of the GNU General Public License as published by the&#10;Free Software Foundation; either version 3 of the License, or (at your option) any later version.&#10; &#10;Firefly is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the&#10;implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General&#10;Public License for more details. You should have received a copy of the GNU Lesser General Public&#10;License along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.&#10; &#10;You should have received a copy of the GNU General Public License along with Firefly. If not, see&#10;&lt;http://www.gnu.org/licenses/&gt;." />
-    <option name="myName" value="GPLv3" />
-  </copyright>
-</component>
