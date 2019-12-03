@@ -14,30 +14,11 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-import MiddlewareStack from "./middlewareStack";
-import Middleware from "./middleware";
-import {Message} from "../../entity/messaging/message";
+import MessageBus from "./MessageBus";
+import Event from "../../entity/messaging/Event";
 
-export default class MessageBus {
-    readonly middleware: Middleware[];
-    private stack: MiddlewareStack;
-
-    constructor(middleware?: Middleware[]) {
-        this.middleware = middleware || [];
-        this.stack = new MiddlewareStack(this.middleware);
-    }
-
-    add(middleware: Middleware) {
-        this.middleware.push(middleware);
-        this.stack.add(middleware);
-    }
-
-    insert(index: number, middleware: Middleware) {
-        this.middleware.splice(index, 0, middleware);
-        this.stack.insert(index, middleware);
-    }
-
-    dispatch(message: Message): Message | void {
-        return this.stack.handle(message);
+export default class EventBus extends MessageBus {
+    dispatch(event: Event) {
+        return super.dispatch(event);
     }
 }

@@ -14,10 +14,15 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-import {Message} from "../../entity/messaging/message";
-import Middleware from "./middleware";
+import m from "mithril";
+import {Message} from "../../entity/messaging/Message";
 
-export default function loggingMiddleware(message: Message, next: CallableFunction): Middleware | void {
-    console.log('LoggingMiddleware', message);
-    return next(message);
+export default function QueryHandlingMiddleware(message: Message, next: CallableFunction): any | void {
+    return m.request({
+        method: 'GET',
+        url: `http://localhost:9000/${message._context}`,
+        params: {
+            query: JSON.stringify(message),
+        },
+    });
 }

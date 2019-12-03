@@ -14,10 +14,13 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-declare module 'worker-loader!*' {
-    class WebpackWorker extends Worker {
-        constructor();
-    }
+import m from "mithril";
+import {Message} from "../../entity/messaging/Message";
 
-    export = WebpackWorker;
+export default function CommandHandlingMiddleware(message: Message, next: CallableFunction): any | void {
+    return m.request({
+        method: 'POST',
+        url: `http://localhost:9000/${message._context}`,
+        body: message,
+    });
 }

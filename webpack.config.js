@@ -18,9 +18,15 @@ const HtmlWebPackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = {
-  entry: "./src/app.ts",
+  entry: {
+    firefly: "./src/app.ts",
+    serviceWorker: "./src/serviceWorker.ts",
+  },
   output: {
-    filename: "bin/app.js",
+    filename: "[name].js",
+    library: "[name]",
+    libraryTarget: "umd",
+    globalObject: "this",
   },
   devServer: {
     overlay: true,
@@ -51,10 +57,6 @@ module.exports = {
         loader: "ts-loader",
         exclude: /node_modules/,
       },
-      {
-        test: /\.worker\.js$/,
-        use: { loader: "worker-loader" },
-      },
     ]
   },
   plugins: [
@@ -63,8 +65,8 @@ module.exports = {
       chunkFilename: "styles.css"
     }),
     new HtmlWebPackPlugin({
-      template: "./index.html",
-      filename: "./index.html"
+      filename: "index.html",
+      excludeChunks: ["serviceWorker"]
     }),
   ]
 };

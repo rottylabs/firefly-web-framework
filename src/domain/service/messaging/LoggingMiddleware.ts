@@ -14,6 +14,11 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-const ctx: Worker = self as any;
+import {Message} from "../../entity/messaging/Message";
 
-ctx.postMessage('ready');
+export default function LoggingMiddleware(prefix: string) {
+    return function(message: Message, next: CallableFunction): Promise<any> {
+        console.log(prefix, message);
+        return next(message);
+    };
+}

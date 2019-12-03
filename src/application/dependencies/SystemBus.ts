@@ -14,20 +14,24 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-import SystemBus from "../../domain/service/messaging/systemBus";
-import EventBus from "../../domain/service/messaging/eventBus";
-import CommandBus from "../../domain/service/messaging/commandBus";
-import QueryBus from "../../domain/service/messaging/queryBus";
-import loggingMiddleware from "../../domain/service/messaging/loggingMiddleware";
+import SystemBus from "../../domain/service/messaging/SystemBus";
+import EventBus from "../../domain/service/messaging/EventBus";
+import CommandBus from "../../domain/service/messaging/CommandBus";
+import QueryBus from "../../domain/service/messaging/QueryBus";
+import LoggingMiddleware from "../../domain/service/messaging/LoggingMiddleware";
+import CommandHandlingMiddleware from "../../domain/service/messaging/CommandHandlingMiddleware";
+import QueryHandlingMiddleware from "../../domain/service/messaging/QueryHandlingMiddleware";
 
 const eventBus = new EventBus([
-    loggingMiddleware,
+    LoggingMiddleware('Event Bus'),
 ]);
 const commandBus = new CommandBus([
-    loggingMiddleware,
+    LoggingMiddleware('Command Bus'),
+    CommandHandlingMiddleware,
 ]);
 const queryBus = new QueryBus([
-    loggingMiddleware
+    LoggingMiddleware('Query Bus'),
+    QueryHandlingMiddleware,
 ]);
 const bus = new SystemBus(eventBus, commandBus, queryBus);
 

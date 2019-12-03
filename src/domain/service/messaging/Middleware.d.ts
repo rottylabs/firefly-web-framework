@@ -14,33 +14,8 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-import Event from "../entity/messaging/event";
-import Command from "../entity/messaging/command";
-import Query from "../entity/messaging/query";
+import {Message} from "../../entity/messaging/Message";
 
-export default class MessageFactory {
-    static event(name: string, data: Object) {
-        return MessageFactory.build(name, data, Event)
-    }
-
-    static command(name: string, data: Object) {
-        return MessageFactory.build(name, data, Command)
-    }
-
-    static query(name: string, data: Object) {
-        return MessageFactory.build(name, data, Query);
-    }
-
-    private static build(name: string, data: Object, type) {
-        let context = 'web_app';
-        if (name.includes('.')) {
-            const parts = name.split('.');
-            context = parts[0];
-            name = parts[1];
-        }
-        const ret = new type({}, context, data);
-        ret._name = name;
-
-        return ret;
-    }
+export default interface Middleware {
+    (message: Message, next: Middleware): Promise<any>;
 }

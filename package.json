@@ -12,7 +12,12 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@types/service_worker_api": "0.0.9",
+    "idb-keyval": "^3.2.0",
+    "inflection": "^1.12.0",
     "mithril": "^2.0.4",
+    "reflect-metadata": "^0.1.13",
+    "store": "^2.0.12",
     "tailwindcss": "^1.1.2",
     "uuid": "^3.3.3"
   },
@@ -28,6 +33,7 @@
     "node-sass": "^4.12.0",
     "postcss-cli": "^6.1.3",
     "postcss-loader": "^3.0.0",
+    "promise-worker": "^2.0.1",
     "sass-loader": "^8.0.0",
     "style-loader": "^1.0.0",
     "ts-loader": "^6.1.0",
@@ -35,8 +41,7 @@
     "typescript": "^3.6.3",
     "webpack": "^4.39.3",
     "webpack-cli": "^3.3.7",
-    "webpack-dev-server": "^3.8.0",
-    "worker-loader": "^2.0.0"
+    "webpack-dev-server": "^3.8.0"
   },
   "ava": {
     "compileEnhancements": false,

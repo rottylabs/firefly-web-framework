@@ -14,8 +14,11 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-import {Message} from "../../entity/messaging/message";
+import {Message} from "./Message";
 
-export default interface Middleware {
-    (message: Message, next: Middleware): Message | void;
+export default class Event extends Message {
+    constructor(headers?: Object, context?: string, data?: Object) {
+        super(headers, context, data);
+        this._type = 'event';
+    }
 }

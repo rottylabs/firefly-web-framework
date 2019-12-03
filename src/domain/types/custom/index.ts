@@ -14,11 +14,10 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-import MessageBus from "./messageBus";
-import Query from "../../entity/messaging/query";
-
-export default class QueryBus extends MessageBus {
-    query(query: Query) {
-        return this.dispatch(query);
+declare module 'worker-loader*' {
+    class WebpackWorker extends Worker {
+        constructor();
     }
+
+    export = WebpackWorker;
 }

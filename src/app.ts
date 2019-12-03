@@ -17,19 +17,44 @@
 // import m from './infrastructure/factory/componentFactory';
 import m from 'mithril';
 import Stream from 'mithril/stream';
+import PromiseWorker from "promise-worker";
+// import FireflyWorker from "./index";
+//
+// const fw = new FireflyWorker();
 
-console.log(m);
+// let promiseWorker;
+// navigator.serviceWorker.register('serviceWorker.js', {
+//     scope: './',
+// }).then(() => {
+//     console.log('First promise');
+//     if (navigator.serviceWorker.controller) {
+//         return navigator.serviceWorker;
+//     }
+//     return new Promise((resolve) => {
+//         function onControllerChange() {
+//             navigator.serviceWorker.removeEventListener('controllerchange', onControllerChange);
+//             resolve(navigator.serviceWorker);
+//         }
+//         navigator.serviceWorker.addEventListener('controllerchange', onControllerChange);
+//     });
+// }).then((worker: Worker) => {
+//     console.log('Second promise');
+//     promiseWorker = new PromiseWorker(worker);
+//     console.log('New PromiseWorker', promiseWorker);
+//     // worker.onmessage = handleMessage;
+//     // console.log('onmessage configured');
+// }).catch(console.error);
 
-import Worker from 'worker-loader!./application/service/worker/repository.worker';
-import bus from "./application/dependencies/systemBus";
-import mf from "./domain/factory/messageFactory";
+// import bus from "./application/dependencies/SystemBus";
+// import mf from "./domain/factory/MessageFactory";
 
-const worker = new Worker();
-worker.onmessage = (message) => {
-    console.log('Got a message!', message);
-};
 
-bus.dispatch(mf.event('SomethingHappened', {'foo': 'bar'}));
+// const worker = new Worker();
+// worker.onmessage = (message) => {
+//     console.log('Got a message!', message);
+// };
+
+// bus.dispatch(mf.event('SomethingHappened', {'foo': 'bar'}));
 
 // interface Attrs {
 //     bus: Bus;

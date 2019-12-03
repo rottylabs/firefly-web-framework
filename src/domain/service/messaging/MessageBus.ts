@@ -14,30 +14,30 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-import Middleware from "./middleware";
-import {Message} from "../../entity/messaging/message";
+import MiddlewareStack from "./MiddlewareStack";
+import Middleware from "./Middleware";
+import {Message} from "../../entity/messaging/Message";
 
-export default class MiddlewareStack {
-    middleware: Middleware[];
+export default class MessageBus {
+    readonly middleware: Middleware[];
+    private stack: MiddlewareStack;
 
     constructor(middleware?: Middleware[]) {
         this.middleware = middleware || [];
+        this.stack = new MiddlewareStack(this.middleware);
     }
 
     add(middleware: Middleware) {
         this.middleware.push(middleware);
+        this.stack.add(middleware);
     }
 
     insert(index: number, middleware: Middleware) {
-        this.middleware = this.middleware.splice(index, 0, middleware);
+        this.middleware.splice(index, 0, middleware);
+        this.stack.insert(index, middleware);
     }
 
-    handle(message: Message): Message | void {
-        let cb = (message) => message;
-        this.middleware.reverse().forEach((mw) => {
-            const n = cb;
-            cb = (message) => mw(message, n);
-        });
-        return cb(message);
+    dispatch(message: Message): Promise<any> {
+        return this.stack.handle(message);
     }
 }

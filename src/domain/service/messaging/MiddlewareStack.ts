@@ -14,11 +14,30 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-import {Message} from "./message";
+import Middleware from "./Middleware";
+import {Message} from "../../entity/messaging/Message";
 
-export default class Query extends Message {
-    constructor(headers?: Object, context?: string, data?: Object) {
-        super(headers, context, data);
-        this._type = 'query';
+export default class MiddlewareStack {
+    middleware: Middleware[];
+
+    constructor(middleware?: Middleware[]) {
+        this.middleware = middleware || [];
+    }
+
+    add(middleware: Middleware) {
+        this.middleware.push(middleware);
+    }
+
+    insert(index: number, middleware: Middleware) {
+        this.middleware = this.middleware.splice(index, 0, middleware);
+    }
+
+    handle(message: Message): Promise<any> {
+        let cb = (message) => message;
+        this.middleware.reverse().forEach((mw) => {
+            const n = cb;
+            cb = (message) => mw(message, n);
+        });
+        return cb(message);
     }
 }

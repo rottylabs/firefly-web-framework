@@ -14,11 +14,11 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-import MessageBus from "./messageBus";
-import Event from "../../entity/messaging/event";
+import MessageBus from "./MessageBus";
+import Query from "../../entity/messaging/Query";
 
-export default class EventBus extends MessageBus {
-    dispatch(event: Event) {
-        return super.dispatch(event);
+export default class QueryBus extends MessageBus {
+    request(query: Query): Promise<any> {
+        return this.dispatch(query);
     }
 }

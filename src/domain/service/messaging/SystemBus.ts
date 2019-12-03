@@ -14,13 +14,14 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-import EventBus from "./eventBus";
-import CommandBus from "./commandBus";
-import QueryBus from "./queryBus";
-import Command from "../../entity/messaging/command";
-import Query from "../../entity/messaging/query";
-import Event from "../../entity/messaging/event";
-import MessageFactory from "../../factory/messageFactory";
+import EventBus from "./EventBus";
+import CommandBus from "./CommandBus";
+import QueryBus from "./QueryBus";
+import Command from "../../entity/messaging/Command";
+import Query from "../../entity/messaging/Query";
+import Event from "../../entity/messaging/Event";
+import MessageFactory from "../../factory/MessageFactory";
+import {SearchCriteria} from "../../repository/SearchCriteria";
 
 export default class SystemBus {
     readonly eventBus: EventBus;
@@ -33,27 +34,27 @@ export default class SystemBus {
         this.queryBus = queryBus;
     }
 
-    dispatch(event: Event | string, data?: Object) {
+    dispatch(event: Event | string, data?: Object): Promise<any> {
         let e = event;
-        if (event instanceof String) {
+        if (typeof event === 'string') {
             e = MessageFactory.event(<string> event, data);
         }
         return this.eventBus.dispatch(<Event> e);
     }
 
-    invoke(command: Command | string, data?: Object) {
+    invoke(command: Command | string, data?: Object): Promise<any> {
         let c = command;
-        if (command instanceof String) {
+        if (typeof command === 'string') {
             c = MessageFactory.command(<string> command, data);
         }
         return this.commandBus.invoke(<Command> c);
     }
 
-    query(query: Query | string, data?: Object) {
+    request(query: Query | string, searchCriteria?: SearchCriteria, data?: Object): Promise<any> {
         let q = query;
-        if (query instanceof String) {
-            q = MessageFactory.query(<string> query, data);
+        if (typeof query === 'string') {
+            q = MessageFactory.query(<string> query, searchCriteria, data);
         }
-        return this.queryBus.query(<Query> q);
+        return this.queryBus.request(<Query> q);
     }
 }

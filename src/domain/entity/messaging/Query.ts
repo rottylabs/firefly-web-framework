@@ -14,11 +14,11 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-import {Message} from "./message";
+import {Message} from "./Message";
 
-export default class Command extends Message {
+export default class Query extends Message {
     constructor(headers?: Object, context?: string, data?: Object) {
         super(headers, context, data);
-        this._type = 'command';
+        this._type = 'query';
     }
 }

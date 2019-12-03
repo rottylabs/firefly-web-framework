@@ -14,11 +14,11 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-import MessageBus from "./messageBus";
-import Command from "../../entity/messaging/command";
+import {Message} from "./Message";
 
-export default class CommandBus extends MessageBus {
-    invoke(command: Command) {
-        return this.dispatch(command);
+export default class Command extends Message {
+    constructor(headers?: Object, context?: string, data?: Object) {
+        super(headers, context, data);
+        this._type = 'command';
     }
 }
